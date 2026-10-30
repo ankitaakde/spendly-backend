@@ -6,7 +6,7 @@ import Login from './Login'
 import AddExpense from './AddExpense'
 import ExpenseChart from './ExpenseChart'
 
-const API_URL = 'http://127.0.0.1:8000'
+const API_URL = https//spendly-backend-15og.onrender.com
 
 function App() {
   const [expenses, setExpenses] = useState([])
