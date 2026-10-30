@@ -2,7 +2,7 @@
 import { useState } from 'react'
 import './Login.css'
 
-const API_URL = 'http://127.0.0.1:8000'
+const API_URL = 'https://spendly-backend-15og.onrender.com'
 
 function Login({ onLoginSuccess }) {
   const [email, setEmail] = useState('')

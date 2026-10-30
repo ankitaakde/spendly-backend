@@ -1,8 +1,7 @@
 import { useState } from 'react'
 import './Signup.css'
 
-const API_URL = 'http://127.0.0.1:8000'
-
+const API_URL = 'https://spendly-backend-15og.onrender.com'
 function Signup() {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')

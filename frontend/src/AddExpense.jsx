@@ -2,7 +2,7 @@
 import { useState } from 'react'
 
 // FastAPI backend URL
-const API_URL = 'http://127.0.0.1:8000'
+const API_URL = 'https://spendly-backend-15og.onrender.com'
 
 function AddExpense({ onExpenseAdded }) {
   // Form ki values store karna
