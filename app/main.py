@@ -20,7 +20,7 @@ app.add_middleware(
         "http://127.0.0.1:5173",
         "http://localhost:5174",
         "http://127.0.0.1:5174",
-        "https://spendly-backend-roan.vercel.app",
+        "https://spendly-web-ashen.vercel.app",
     ],
     allow_credentials=True,
     allow_methods=["*"],
