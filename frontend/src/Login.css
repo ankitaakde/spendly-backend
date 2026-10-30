@@ -1,0 +1,94 @@
+
+/* Center the login form */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 15px;
+  font-family: Arial, sans-serif;
+}
+
+/* Style the login form */
+.login-form {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 350px;
+  padding: 30px;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+/* Style the heading */
+.login-form h2 {
+  margin-bottom: 8px;
+  text-align: center;
+  color: #2563eb;
+}
+
+/* Style the form description */
+.login-form > p:first-of-type {
+  text-align: center;
+  color: #666666;
+  margin-bottom: 24px;
+}
+
+/* Style the email and password fields */
+.login-form input {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 1px solid #d1d5db;
+  border-radius: 7px;
+  font-size: 15px;
+  color: #000000 !important;
+  background-color: #ffffff !important;
+  -webkit-text-fill-color: #000000 !important;
+  caret-color: #000000 !important;
+  opacity: 1 !important;
+}
+
+/* Style placeholder text */
+.login-form input::placeholder {
+  color: #777777 !important;
+  opacity: 1 !important;
+}
+
+/* Highlight the border when an input is focused */
+.login-form input:focus {
+  outline: 2px solid #93c5fd;
+  border-color: #2563eb;
+}
+
+/* Style the login button */
+.login-form button {
+  width: 100%;
+  padding: 12px;
+  background: #2563eb;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* Change the button color on hover */
+.login-form button:hover {
+  background: #1d4ed8;
+}
+
+/* Style the button when the request is processing */
+.login-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Style the success or error message */
+.login-message {
+  text-align: center;
+  font-size: 14px;
+  color: #15803d;
+}
