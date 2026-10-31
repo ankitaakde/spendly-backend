@@ -4,12 +4,13 @@ import './Login.css'
 
 const API_URL = 'https://spendly-backend-15og.onrender.com'
 
-function Login({ onLoginSuccess }) {
+function Login({ onLoginSuccess, onSignupClick }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
 
+  // Handle login form submission
   async function handleSubmit(event) {
     event.preventDefault()
     setMessage('')
@@ -22,6 +23,7 @@ function Login({ onLoginSuccess }) {
     setLoading(true)
 
     try {
+      // Send login request to the backend
       const response = await fetch(`${API_URL}/users/login`, {
         method: 'POST',
         headers: {
@@ -35,9 +37,9 @@ function Login({ onLoginSuccess }) {
       })
 
       const result = await response.json()
-      console.log('FULL LOGIN RESPONSE:', JSON.stringify(result, null, 2))
 
-      if (!response.ok) {
+      // Handle login errors
+      if (!response.ok || result.status === 'error') {
         const error = result.detail || result.message || 'Login failed.'
 
         if (Array.isArray(error)) {
@@ -49,6 +51,7 @@ function Login({ onLoginSuccess }) {
         return
       }
 
+      // Extract the access token from the response
       const token =
         result.data?.access_token ||
         result.access_token ||
@@ -56,25 +59,23 @@ function Login({ onLoginSuccess }) {
         result.token
 
       if (!token) {
-        console.error(
-          'Login response:',
-          JSON.stringify(result, null, 2)
-        )
         setMessage('Login response does not contain an access token.')
         return
       }
 
+      // Save the access token in local storage
       localStorage.setItem('token', token)
 
       setMessage('Login successful!')
       setPassword('')
 
+      // Notify the parent component after successful login
       if (onLoginSuccess) {
         onLoginSuccess()
       }
     } catch (error) {
       console.error('Login error:', error)
-      setMessage('Cannot connect to server. Check FastAPI and CORS settings.')
+      setMessage('Cannot connect to server. Check your internet connection.')
     } finally {
       setLoading(false)
     }
@@ -83,7 +84,11 @@ function Login({ onLoginSuccess }) {
   return (
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
-        <h2>Login</h2>
+        <h2>Welcome Back!</h2>
+
+        <p className="login-subtitle">
+          Login to your Spendly account
+        </p>
 
         <input
           type="email"
@@ -105,7 +110,21 @@ function Login({ onLoginSuccess }) {
           {loading ? 'Logging in...' : 'Login'}
         </button>
 
-        {message && <p role="status">{message}</p>}
+        {message && (
+          <p className="login-message" role="status">
+            {message}
+          </p>
+        )}
+
+        <p className="signup-link">
+          Don't have an account?{' '}
+          <button
+            type="button"
+            onClick={() => onSignupClick?.()}
+          >
+            Sign Up
+          </button>
+        </p>
       </form>
     </div>
   )

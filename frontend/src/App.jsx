@@ -12,6 +12,7 @@ function App() {
   const [expenses, setExpenses] = useState([])
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
+  const [showSignup, setShowSignup] = useState(false)
 
   const [isLoggedIn, setIsLoggedIn] = useState(
     () => Boolean(localStorage.getItem('token'))
@@ -416,10 +417,16 @@ function App() {
             <p>Manage your money, one expense at a time.</p>
           </div>
 
-          <div className="auth-forms">
-            <Signup />
-            <Login onLoginSuccess={handleLoginSuccess} />
-          </div>
+         <div className="auth-forms">
+  {showSignup ? (
+    <Signup onLoginClick={() => setShowSignup(false)} />
+  ) : (
+    <Login
+      onLoginSuccess={handleLoginSuccess}
+      onSignupClick={() => setShowSignup(true)}
+    />
+  )}
+</div>
 
           {message && (
             <p className="status-message">{message}</p>
