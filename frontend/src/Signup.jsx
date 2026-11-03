@@ -1,18 +1,22 @@
+
 import { useState } from 'react'
 import './Signup.css'
 
 const API_URL = 'https://spendly-backend-15og.onrender.com'
-function Signup() {
+
+function Signup({ onLoginClick }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [message, setMessage] = useState('')
   const [loading, setLoading] = useState(false)
+  const [signupSuccess, setSignupSuccess] = useState(false)
 
   // Handle signup form submission
   async function handleSignup(event) {
     event.preventDefault()
     setMessage('')
+    setSignupSuccess(false)
     setLoading(true)
 
     try {
@@ -36,30 +40,24 @@ function Signup() {
 
         if (Array.isArray(error)) {
           setMessage(
-            error
-              .map((item) => {
-                const field = item.loc?.join('.') || 'Field'
-                return `${field}: ${item.msg}`
-              })
-              .join(', ')
+            error.map((item) => item.msg).join(', ')
           )
-        } else if (typeof error === 'string') {
-          setMessage(error)
         } else {
-          setMessage(`Signup failed. Status: ${response.status}`)
+          setMessage(error || 'Signup failed.')
         }
 
         return
       }
 
       setMessage('Account created successfully! Please login.')
+      setSignupSuccess(true)
 
       setName('')
       setEmail('')
       setPassword('')
     } catch (error) {
       console.error('Signup error:', error)
-      setMessage('Server connection failed. Check FastAPI server.')
+      setMessage('Server connection failed. Please try again.')
     } finally {
       setLoading(false)
     }
@@ -70,7 +68,6 @@ function Signup() {
       <form className="signup-form" onSubmit={handleSignup}>
         <h2>Create Account</h2>
 
-        {/* User name field */}
         <input
           type="text"
           placeholder="Full Name"
@@ -79,7 +76,6 @@ function Signup() {
           required
         />
 
-        {/* Email field */}
         <input
           type="email"
           placeholder="Email Address"
@@ -88,7 +84,6 @@ function Signup() {
           required
         />
 
-        {/* Password field */}
         <input
           type="password"
           placeholder="Password"
@@ -98,13 +93,34 @@ function Signup() {
           required
         />
 
-        {/* Signup button */}
         <button type="submit" disabled={loading}>
           {loading ? 'Creating Account...' : 'Sign Up'}
         </button>
 
-        {/* Display signup message */}
-        {message && <p>{message}</p>}
+        {message && (
+          <p className="signup-message" role="status">
+            {message}
+          </p>
+        )}
+
+        {signupSuccess && (
+          <button
+            type="button"
+            onClick={() => onLoginClick?.()}
+          >
+            Continue to Login
+          </button>
+        )}
+
+        <p className="login-link">
+          Already have an account?{' '}
+          <button
+            type="button"
+            onClick={() => onLoginClick?.()}
+          >
+            Login
+          </button>
+        </p>
       </form>
     </div>
   )
